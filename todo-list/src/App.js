@@ -7,12 +7,14 @@ function App() {
   const [todoList, setTodoList] = useState([]);  
 
   function addTodo(content) {
+    //Objet qui va contenir les news informations de l'utilisateur
     const todo = {
       id: crypto.randomUUID(),
       content,
       done: false,
       edit: false
     }
+    // '...' est un 'spread operator' qui va créer une copie du tableau 'todoList' dans lequel on va ajouter les nouvelles informations avec l'objet todo.
     setTodoList([...todoList, todo ])
   }
   return (
@@ -20,7 +22,7 @@ function App() {
       <div className="card container p-20">
         <h1 className="mb-20">Todo List</h1>
         <AddTodo addTodo={ addTodo }/>
-        <TodoList />
+        <TodoList todoList={ todoList } />
       </div>
     </div>
   );
