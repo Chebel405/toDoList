@@ -1,13 +1,18 @@
 import TodoItem from './TodoItem';
+import EditTodo from './EditTodo';
 
-function TodoList({ todoList, deleteTodo }) {
+function TodoList({ todoList, deleteTodo, toggleTodo, toggleTodoEdit }) {
     return todoList.length ? (
         <ul>
-            {todoList.map((todo) => (
+            {todoList.map((todo) => todo.edit ? (
+                <EditTodo key={todo.id} todo={todo}/>
+            ) :  (
                 <TodoItem 
                     key={todo.id }
                     todo={ todo }
-                    deleteTodo={deleteTodo}/>
+                    editTodo={() => toggleTodoEdit(todo.id)}
+                    deleteTodo={() => deleteTodo(todo.id)}
+                    toggleTodo={() => toggleTodo(todo.id)}/>
             ))};
         </ul>
        
