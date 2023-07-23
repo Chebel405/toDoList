@@ -12,7 +12,8 @@ function App() {
       id: crypto.randomUUID(),
       content,
       done: false,
-      edit: false
+      edit: false,
+      selected: false
     }
     // '...' est un 'spread operator' qui va créer une copie du tableau 'todoList' dans lequel on va ajouter les nouvelles informations avec l'objet todo.
     setTodoList([...todoList, todo ])
@@ -49,6 +50,38 @@ function App() {
     );
   }
 
+  function editTodo(id, content){
+    setTodoList(
+      todoList.map((todo) =>
+       todo.id === id
+        ? {
+            ...todo,
+            edit: false,
+            content
+          }
+      : todo
+    )
+  );
+}
+
+  function selectTodo(id){
+    setTodoList(todoList.map((todo) => 
+      todo.id === id
+       ? {
+          ...todo,
+          selected: true
+         }
+       :
+         {
+          ...todo,
+          selected: false
+         }
+      
+      )
+    );
+  }
+  
+
   return (
     <div className="d-flex justify-content-center align-items-center p-20">
       <div className="card container p-20">
@@ -58,7 +91,9 @@ function App() {
           todoList={ todoList }
           deleteTodo={ deleteTodo}
           toggleTodo={toggleTodo}
-          toggleTodoEdit={toggleTodoEdit} />
+          toggleTodoEdit={toggleTodoEdit}
+          selectTodo={selectTodo}
+          editTodo={editTodo} />
       </div>
     </div>
   );
